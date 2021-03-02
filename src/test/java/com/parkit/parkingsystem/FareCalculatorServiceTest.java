@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 
 public class FareCalculatorServiceTest {
@@ -72,9 +73,12 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareBikeWithFutureInTime(){
-        LocalDateTime inTime = LocalDateTime.now();
-        inTime.minusHours(1000);
+        LocalDateTime initTime = LocalDateTime.now();
+        System.out.println("before " + initTime);
+        LocalDateTime inTime = initTime.plus(60, ChronoUnit.HOURS);
+        System.out.println("after  " + inTime);
         LocalDateTime outTime = LocalDateTime.now();
+        System.out.println(outTime);
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE,false);
 
         ticket.setInTime(inTime);

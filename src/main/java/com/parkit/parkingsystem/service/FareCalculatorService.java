@@ -15,6 +15,8 @@ public class FareCalculatorService {
 
         System.out.println(inHour);
         System.out.println(outHour);
+        System.out.println(ticket.getOutTime());
+        System.out.println(ticket.getInTime());
 
         //TODO: Some tests are failing here. Need to check if this logic is correct
         int duration = outHour - inHour;
