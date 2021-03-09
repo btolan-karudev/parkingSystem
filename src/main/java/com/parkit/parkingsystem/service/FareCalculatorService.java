@@ -29,16 +29,21 @@ public class FareCalculatorService {
                     ticket.setPrice((dMinutes - 30) / 60 * Fare.CAR_RATE_PER_HOUR);
                 } else {
                     ticket.setPrice(0.0);
-                    System.out.println("GRATOS GRATOS");
+                    System.out.println("FREE 30 MIN");
                 }
                 break;
             }
             case BIKE: {
-                ticket.setPrice(dMinutes * Fare.BIKE_RATE_PER_HOUR);
+                if (dMinutes > 30) {
+                    ticket.setPrice((dMinutes - 30) / 60 * Fare.BIKE_RATE_PER_HOUR);
+                } else {
+                    ticket.setPrice(0.0);
+                    System.out.println("FREE 30 MIN");
+                }
                 break;
             }
             default:
-                throw new IllegalArgumentException("Unkown Parking Type");
+                throw new IllegalArgumentException("Unknown Parking Type");
         }
     }
 }

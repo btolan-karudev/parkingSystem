@@ -44,8 +44,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareBike() {
-        LocalDateTime inTime = LocalDateTime.now();
-        inTime.minusHours(1000);
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(90);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
 
@@ -58,8 +57,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareUnkownType() {
-        LocalDateTime inTime = LocalDateTime.now();
-        inTime.minusHours(1000);
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(90);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, null, false);
 
@@ -87,8 +85,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareBikeWithLessThanOneHourParkingTime() {
-        LocalDateTime inTime = LocalDateTime.now();
-        //inTime.setTime( System.currentTimeMillis() - (  45 * 60 * 1000) );//45 minutes parking time should give 3/4th parking fare
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(75);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
 
@@ -101,8 +98,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareCarWithLessThanOneHourParkingTime() {
-        LocalDateTime inTime = LocalDateTime.now();
-        //inTime.setTime( System.currentTimeMillis() - (  45 * 60 * 1000) );//45 minutes parking time should give 3/4th parking fare
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(75);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
@@ -115,8 +111,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareCarWithMoreThanADayParkingTime() {
-        LocalDateTime inTime = LocalDateTime.now();
-        //inTime.setTime( System.currentTimeMillis() - (  24 * 60 * 60 * 1000) );//24 hours parking time should give 24 * parking fare per hour
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes((60 * 24) + 30);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
