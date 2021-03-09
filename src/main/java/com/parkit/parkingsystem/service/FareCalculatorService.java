@@ -14,12 +14,8 @@ public class FareCalculatorService {
         }
 
         LocalDateTime inHour = ticket.getInTime();
-        LocalDateTime outHour = ticket.getOutTime().plusMinutes(90);
+        LocalDateTime outHour = ticket.getOutTime();
 
-        System.out.println(inHour);
-        System.out.println(outHour);
-        System.out.println(ticket.getOutTime());
-        System.out.println(ticket.getInTime());
 
         //TODO: Some tests are failing here. Need to check if this logic is correct
         Duration duration = Duration.between(inHour, outHour);
@@ -32,6 +28,7 @@ public class FareCalculatorService {
                 if (dMinutes > 30) {
                     ticket.setPrice((dMinutes - 30) / 60 * Fare.CAR_RATE_PER_HOUR);
                 } else {
+                    ticket.setPrice(0.0);
                     System.out.println("GRATOS GRATOS");
                 }
                 break;
