@@ -32,11 +32,9 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareCar() {
-        LocalDateTime inTime = LocalDateTime.now();
-        inTime.minusHours(1000);
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(90);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-
         ticket.setInTime(inTime);
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
