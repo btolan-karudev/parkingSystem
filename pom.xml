@@ -100,11 +100,6 @@
                         <artifactId>junit-platform-surefire-provider</artifactId>
                         <version>1.2.0</version>
                     </dependency>
-                    <dependency>
-                        <groupId>org.junit.vintage</groupId>
-                        <artifactId>junit-vintage-engine</artifactId>
-                        <version>5.7.0</version>
-                    </dependency>
                 </dependencies>
                 <configuration>
                     <excludes>
