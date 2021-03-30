@@ -20,7 +20,6 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 @ExtendWith(MockitoExtension.class)
 public class ParkingDAOTest {
 
-  private static ParkingService parkingService;
 
   private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
 
