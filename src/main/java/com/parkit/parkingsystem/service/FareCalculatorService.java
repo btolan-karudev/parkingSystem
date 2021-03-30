@@ -20,16 +20,15 @@ public class FareCalculatorService {
     LocalDateTime outHour = ticket.getOutTime();
 
     Duration duration = Duration.between(inHour, outHour);
-    System.out.println(duration);
+
     float dMinutes = duration.toMinutes();
-    System.out.println(dMinutes);
 
     int countClientPassages = checkCountByVehicleRegNumber(ticket.getVehicleRegNumber());
 
     switch (ticket.getParkingSpot().getParkingType()) {
       case CAR: {
         double price = free30Minutes(Fare.CAR_RATE_PER_HOUR, dMinutes);
-        System.out.println(price);
+
         if (countClientPassages >= 1) {
           ticket.setPrice(price * 0.95);
         } else {
@@ -49,7 +48,6 @@ public class FareCalculatorService {
 
   private double free30Minutes(double rate, double minutes) {
     if (minutes > 30) {
-      System.out.println((minutes - 30) / 60 * rate);
       return ((minutes - 30) / 60 * rate);
     } else {
       return 0;
