@@ -31,7 +31,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCar() {
+    public void calculateFareCar() throws Exception {
         LocalDateTime inTime = LocalDateTime.now().minusMinutes(90);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
@@ -43,7 +43,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBike() {
+    public void calculateFareBike() throws Exception {
         LocalDateTime inTime = LocalDateTime.now().minusMinutes(90);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
@@ -84,7 +84,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBikeWithLessThanOneHourParkingTime() {
+    public void calculateFareBikeWithLessThanOneHourParkingTime() throws Exception {
         LocalDateTime inTime = LocalDateTime.now().minusMinutes(75);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
@@ -97,7 +97,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCarWithLessThanOneHourParkingTime() {
+    public void calculateFareCarWithLessThanOneHourParkingTime() throws Exception {
         LocalDateTime inTime = LocalDateTime.now().minusMinutes(75);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
@@ -110,7 +110,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCarWithMoreThanADayParkingTime() {
+    public void calculateFareCarWithMoreThanADayParkingTime() throws Exception {
         LocalDateTime inTime = LocalDateTime.now().minusMinutes((60 * 24) + 30);
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);

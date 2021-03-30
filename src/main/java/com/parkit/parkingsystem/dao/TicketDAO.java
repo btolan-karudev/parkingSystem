@@ -6,6 +6,7 @@ import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +19,7 @@ public class TicketDAO {
 
     private static final Logger logger = LogManager.getLogger("TicketDAO");
 
-    public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    public static DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     public boolean saveTicket(Ticket ticket) {
         Connection con = null;
@@ -26,7 +27,6 @@ public class TicketDAO {
             con = dataBaseConfig.getConnection();
             PreparedStatement ps = con.prepareStatement(DBConstants.SAVE_TICKET);
             //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
-            //ps.setInt(1,ticket.getId());
             ps.setInt(1, ticket.getParkingSpot().getId());
             ps.setString(2, ticket.getVehicleRegNumber());
             ps.setDouble(3, ticket.getPrice());
@@ -58,7 +58,9 @@ public class TicketDAO {
                 ticket.setVehicleRegNumber(vehicleRegNumber);
                 ticket.setPrice(rs.getDouble(3));
                 ticket.setInTime(rs.getTimestamp(4).toLocalDateTime());
-                ticket.setOutTime(LocalDateTime.now());
+                if (rs.getTimestamp(5) != null) {
+                    ticket.setOutTime(rs.getTimestamp(5).toLocalDateTime());
+                }
             }
             dataBaseConfig.closeResultSet(rs);
             dataBaseConfig.closePreparedStatement(ps);
@@ -86,5 +88,25 @@ public class TicketDAO {
             dataBaseConfig.closeConnection(con);
         }
         return false;
+    }
+
+    public static int checkCountByVehicleRegNumber(String vehicleRegNumber) throws Exception {
+        int result;
+        try (Connection con = dataBaseConfig.getConnection()) {
+            final PreparedStatement ps = con.prepareStatement(DBConstants.GET_COUNT);
+            ps.setString(1, vehicleRegNumber);
+            final ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt("countIfExistingClient");
+            } else {
+                throw new NoSuchElementException("Empty ResultSet");
+            }
+        }catch (Exception ex){
+            logger.error("Error counting tickets by Vehicle Reg Number",ex);
+            throw new Exception("Error counting tickets by Vehicle Reg Number", ex);
+        }finally {
+            dataBaseConfig.closeConnection(dataBaseConfig.getConnection());
+        }
+        return result;
     }
 }
