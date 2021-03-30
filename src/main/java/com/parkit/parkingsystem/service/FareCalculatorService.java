@@ -19,7 +19,6 @@ public class FareCalculatorService {
     LocalDateTime inHour = ticket.getInTime();
     LocalDateTime outHour = ticket.getOutTime();
 
-    //TODO: Some tests are failing here. Need to check if this logic is correct
     Duration duration = Duration.between(inHour, outHour);
     System.out.println(duration);
     float dMinutes = duration.toMinutes();
@@ -31,7 +30,7 @@ public class FareCalculatorService {
       case CAR: {
         double price = free30Minutes(Fare.CAR_RATE_PER_HOUR, dMinutes);
         System.out.println(price);
-        if (countClientPassages > 1) {
+        if (countClientPassages >= 1) {
           ticket.setPrice(price * 0.95);
         } else {
           ticket.setPrice(price);
