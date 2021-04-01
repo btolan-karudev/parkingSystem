@@ -71,6 +71,18 @@ public class ParkingDataBaseIT {
     }
 
     @Test
+    public void testParkingABike() {
+
+        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+        parkingService.processIncomingVehicle();
+        Ticket ticket = ticketDAO.getTicket("ABCDEF");
+        assertNotNull(ticket);
+        assertEquals(1, ticket.getId(), "Ticket Id Not Valid");
+
+
+    }
+
+    @Test
     public void testParkingLotExit() {
         testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
