@@ -20,7 +20,7 @@ public class TicketDAO {
 
     public static DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
-    public void saveTicket(Ticket ticket) {
+    public boolean saveTicket(Ticket ticket) {
         Connection con = null;
         try {
             con = dataBaseConfig.getConnection();
@@ -31,12 +31,12 @@ public class TicketDAO {
             ps.setDouble(3, ticket.getPrice());
             ps.setTimestamp(4, Timestamp.valueOf(ticket.getInTime()));
             ps.setTimestamp(5, (ticket.getOutTime() == null) ? null : (Timestamp.valueOf(ticket.getOutTime())));
-            ps.execute();
+            return ps.execute();
         } catch (Exception ex) {
             logger.error("Error fetching next available slot", ex);
         } finally {
             dataBaseConfig.closeConnection(con);
-            return;
+            return false;
         }
     }
 
